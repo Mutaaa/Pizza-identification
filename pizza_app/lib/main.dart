@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -50,9 +53,22 @@ class MyImagePickerState extends State {
     });
   }
 
-//  Future classifyImage() async {
-
-//  }
+ void classifyImage(BuildContext context) async {
+   FormData formData = new FormData.fromMap({
+      "file": await MultipartFile.fromFile(path)
+   });
+   try {
+      var response = await Dio().post("http://192.168.43.251:5000/upload", data: formData);
+      var parsedJson = json.decode(response.data.toString());
+      setState(() {
+        result = "${parsedJson['class']}\n${parsedJson['score'].toStringAsFixed(2)} %";
+      });
+   } catch (e) {
+     setState(() {
+        result = e.toString();
+      });
+   }
+ }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +101,7 @@ class MyImagePickerState extends State {
                   Container(
                       margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
                       child: RaisedButton(
-                        //onPressed: () => classifyImage(),
+                        onPressed: () => classifyImage(context),
                         child: Text('Classify Image'),
                         textColor: Colors.white,
                         color: Colors.blue,
