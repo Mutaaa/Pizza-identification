@@ -58,7 +58,7 @@ class MyImagePickerState extends State {
       "file": await MultipartFile.fromFile(path)
    });
    try {
-      var response = await Dio().post("http://192.168.43.251:5000/upload", data: formData);
+      var response = await Dio().post("http://[your own ip address]:5000/upload", data: formData); //change [your own ip address] to your own address
       var parsedJson = json.decode(response.data.toString());
       setState(() {
         result = "${parsedJson['class']}\n${parsedJson['score'].toStringAsFixed(2)} %";
