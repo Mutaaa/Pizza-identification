@@ -1,0 +1,2 @@
+0 pizza
+1 not-pizza
