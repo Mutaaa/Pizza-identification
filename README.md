@@ -1,5 +1,5 @@
 # Pizza-identification
-An artificial intelligence application to identify hotdog. Using flutter, python, and tensorflow. 
+An artificial intelligence application to identify pizza. Using flutter, python, and tensorflow. 
 
 Steps
 --------
